@@ -21,6 +21,7 @@ dependencyResolutionManagement {
         maven ("https://maven.aliyun.com/repository/public")
         maven ("https://maven.aliyun.com/repository/gradle-plugin")
         google()
+        maven("https://jitpack.io")
         mavenCentral()
     }
 }

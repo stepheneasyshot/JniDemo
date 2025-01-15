@@ -6,21 +6,43 @@ plugins {
 
 android {
     namespace = "com.stephen.jnidemo"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.stephen.jnidemo"
         minSdk = 31
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        val aaosSign = "stephen"
+        register("aaos") {
+            keyAlias = aaosSign
+            keyPassword = aaosSign
+            storeFile = file("./keystores/platform.jks")
+            storePassword = aaosSign
+        }
+    }
+
+
     buildTypes {
-        release {
+        debug {
+            signingConfig = signingConfigs.getByName("aaos")
             isMinifyEnabled = false
+            isDebuggable = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        release {
+            signingConfig = signingConfigs.getByName("aaos")
+            isMinifyEnabled = false
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -56,4 +78,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.redfinCommonHelper)
+
 }
