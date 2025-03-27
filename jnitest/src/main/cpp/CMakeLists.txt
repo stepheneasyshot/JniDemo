@@ -24,3 +24,11 @@ target_link_libraries(image-blur
         android
         jnigraphics
         log)
+
+# 算法学习demo
+add_library(algorithm-demo SHARED
+        algorithm_test.cpp)
+target_link_libraries(algorithm-demo
+        android
+        jnigraphics
+        log)

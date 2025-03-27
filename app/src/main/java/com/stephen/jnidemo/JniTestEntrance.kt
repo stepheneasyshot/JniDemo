@@ -1,6 +1,7 @@
 package com.stephen.jnidemo
 
 import android.widget.Toast
+import com.stephen.jnitest.AlgorithmDemo
 import com.stephen.jnitest.CpuAffinity
 import com.stephen.jnitest.ImageBlurUtils
 import com.stephen.jnitest.JniUtils
@@ -26,8 +27,22 @@ object JniTestEntrance {
             dataTypeTest()
         }
 
-        // cpu亲和性测试
-        cpuAffinity()
+        MainScope().launch {
+            cpuAffinity()
+        }
+
+        MainScope().launch {
+            algorithmTest()
+        }
+    }
+
+    private fun algorithmTest(){
+        MainScope().launch {
+            AlgorithmDemo.init()
+            delay(3000L)
+            AlgorithmDemo.kotlinVersion()
+            AlgorithmDemo.cppVersion()
+        }
     }
 
     private var result: Long = 0L
