@@ -156,3 +156,154 @@ Java_com_stephen_jnitest_AlgorithmDemo_removeElementTest(JNIEnv *env, jobject) {
     int val = 3;
     removeElement(nums, val);
 }
+
+/**
+ * 我的数青蛙
+ */
+int myCountCroakOfFrogs(std::string croakOfFrogs) {
+    int arrayLenth = croakOfFrogs.length() / 5 + 1;
+    int frogsNumber = 0;
+    // 检查字符串中五个字母数量是否相等
+    int cCount = 0;
+    int rCount = 0;
+    int oCount = 0;
+    int aCount = 0;
+    int kCount = 0;
+    char tempFrogsArray[arrayLenth][6];
+    // 清空初始化
+    for (int j = 0; j < arrayLenth; j++) {
+        for (int k = 0; k < 6; k++) {
+            tempFrogsArray[j][k] = '\0';
+        }
+    }
+    // 遍历每一个字母，往临时二维数组里填充数据
+    for (char croakOfFrog: croakOfFrogs) {
+        // 遇到c，判断有没有满了的项，满了的话，清空重新接收，否则新开一个
+        if (croakOfFrog == 'c') {
+            cCount++;
+            for (int j = 0; j < arrayLenth; j++) {
+                if (std::string(tempFrogsArray[j]) == "croak") {
+                    // 清空数组
+                    for (int k = 0; k < 6; k++) {
+                        tempFrogsArray[j][k] = '\0';
+                    }
+                    tempFrogsArray[j][0] = 'c';
+                    break;
+                }
+                if (std::string(tempFrogsArray[j]).empty()) {
+                    tempFrogsArray[j][0] = 'c';
+                    break;
+                }
+            }
+        } else if (croakOfFrog == 'r') {
+            rCount++;
+            for (int j = 0; j < arrayLenth; j++) {
+                if (std::string(tempFrogsArray[j]) == "c") {
+                    tempFrogsArray[j][1] = 'r';
+                    break;
+                }
+            }
+        } else if (croakOfFrog == 'o') {
+            oCount++;
+            for (int j = 0; j < arrayLenth; j++) {
+                if (std::string(tempFrogsArray[j]) == "cr") {
+                    tempFrogsArray[j][2] = 'o';
+                    break;
+                }
+            }
+        } else if (croakOfFrog == 'a') {
+            aCount++;
+            for (int j = 0; j < arrayLenth; j++) {
+                if (std::string(tempFrogsArray[j]) == "cro") {
+                    tempFrogsArray[j][3] = 'a';
+                    break;
+                }
+            }
+        } else if (croakOfFrog == 'k') {
+            kCount++;
+            for (int j = 0; j < arrayLenth; j++) {
+                if (std::string(tempFrogsArray[j]) == "croa") {
+                    tempFrogsArray[j][4] = 'k';
+                    break;
+                }
+            }
+        }
+        // 检索数组里面满足croak的项数量
+        int count = 0;
+        for (int j = 0; j < arrayLenth; j++) {
+            if (std::string(tempFrogsArray[j]) == "croak") {
+                count++;
+            }
+        }
+        frogsNumber = frogsNumber > count ? frogsNumber : count;
+    }
+    if (cCount != rCount || rCount != oCount || oCount != aCount || aCount != kCount) {
+        frogsNumber = -1;
+    }
+    // 检查数组里面是否有不满足croak的项
+    for (int j = 0; j < arrayLenth; j++) {
+        if (!std::string(tempFrogsArray[j]).empty() && std::string(tempFrogsArray[j]) != "croak") {
+            frogsNumber = -1;
+            break;
+        }
+    }
+    return frogsNumber;
+}
+
+/**
+ * 大佬的数青蛙
+ * 将青蛙分成 5 种：
+ * 刚才发出了 c 的声音。
+ * 刚才发出了 r 的声音。
+ * 刚才发出了 o 的声音。
+ * 刚才发出了 a 的声音。
+ * 刚才发出了 k 的声音。
+ * 遍历 croakOfFrogs，例如当前遍历到 r，那么就看看有没有青蛙刚才发出了 c 的声音，如果有，那么让它接着发出 r 的声音。换句话说，我们需要消耗一个 c，产生一个 r。
+ * 遍历到 c 时，看看有没有青蛙刚才发出了 k 的声音，如果有，那么复用这只青蛙，让它接着发出 c 的声音，即 cnt['k']-- 和 cnt['c']++；如果没有这种青蛙，那么新产生一只青蛙发出 c 的声音，即 cnt['c']++。
+ * 遍历到 r 时，看看有没有青蛙刚才发出了 c 的声音，如果有，那么复用这只青蛙，让它接着发出 r 的声音，即 cnt['c']-- 和 cnt['r']++；如果没有这种青蛙，由于题目要求青蛙必须从 c 开始蛙鸣，不能直接从 r 开始，所以返回 −1。
+ * 遍历到 o,a,k 的情况类似 r，找到该字母在 croak 的上一个字母的 cnt 值，如果 cnt 值大于 0，那么将其减一，同时当前字母的 cnt 值加一；如果上一个字母的 cnt 值等于 0，那么就返回 −1。
+ * 遍历结束后，所有青蛙必须在最后发出 k 的声音。如果有青蛙在最后发出的声音不是 k（也就是 cnt 值大于 0），那么返回 −1，否则返回 cnt[k]。
+ */
+int countCroakOfFrogs(const std::string& croakOfFrogs) {
+    int ans = 0;
+    int c = 0, r = 0, o = 0, a = 0, k = 0;
+    for (char ch: croakOfFrogs) {
+        if (ch == 'c') {
+            k--;
+            c++;
+            if (k < ans) {
+                ans = k;
+            }
+        } else if (ch == 'r') {
+            c--;
+            r++;
+        } else if (ch == 'o') {
+            r--;
+            o++;
+        } else if (ch == 'a') {
+            o--;
+            a++;
+        } else if (ch == 'k') {
+            a--;
+            k++;
+        }
+        if (c < 0 || r < 0 || o < 0 || a < 0) {
+            return -1;
+        }
+    }
+    if (c != 0 || r != 0 || o != 0 || a != 0) {
+        return -1;
+    }
+    return -ans;
+}
+
+extern "C" JNIEXPORT jint JNICALL
+Java_com_stephen_jnitest_AlgorithmDemo_countCroakOfFrogs(JNIEnv *env, jobject) {
+    LOGI("Java_com_stephen_jnitest_AlgorithmDemo_countCroakOfFrogs triggered");
+    std::string croakOfFrogs = "croakroak";
+    int number = myCountCroakOfFrogs(croakOfFrogs);
+    int number2 = countCroakOfFrogs(croakOfFrogs);
+    LOGI("number = %d", number);
+    LOGI("number2 = %d", number2);
+    return number;
+}

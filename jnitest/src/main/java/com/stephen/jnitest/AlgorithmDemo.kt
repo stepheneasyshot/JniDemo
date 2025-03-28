@@ -16,6 +16,9 @@ object AlgorithmDemo {
         TopInterviewCollection().apply {
             findLengthOfLCIS()
             combineTwoArrayUsingKotlin()
+            countCroakOfFrogsUsingKotlin().also {
+                Log.i(TAG, "countCroakOfFrogsUsingKotlin = $it")
+            }
         }
     }
 
@@ -25,6 +28,7 @@ object AlgorithmDemo {
         removeElementTest()
         bubbleSortTest()
         quickSortTest()
+        countCroakOfFrogs()
     }
 
     private external fun combineTwoArrays()
@@ -34,4 +38,7 @@ object AlgorithmDemo {
     private external fun bubbleSortTest()
 
     private external fun quickSortTest()
+
+    private external fun countCroakOfFrogs(): Int
+
 }
