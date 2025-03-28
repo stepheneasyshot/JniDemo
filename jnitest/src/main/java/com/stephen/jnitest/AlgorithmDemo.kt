@@ -22,7 +22,10 @@ object AlgorithmDemo {
     fun cppVersion() {
         Log.i(TAG, "cppVersion")
         combineTwoArrays()
+        removeElementTest()
     }
 
     private external fun combineTwoArrays()
+
+    private external fun removeElementTest()
 }
