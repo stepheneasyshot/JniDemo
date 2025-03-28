@@ -23,9 +23,15 @@ object AlgorithmDemo {
         Log.i(TAG, "cppVersion")
         combineTwoArrays()
         removeElementTest()
+        bubbleSortTest()
+        quickSortTest()
     }
 
     private external fun combineTwoArrays()
 
     private external fun removeElementTest()
+
+    private external fun bubbleSortTest()
+
+    private external fun quickSortTest()
 }

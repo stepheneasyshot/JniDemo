@@ -2,7 +2,8 @@ package com.stephen.jnidemo.functionpage
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
@@ -16,9 +17,10 @@ import com.stephen.jnidemo.appContext
 import com.stephen.jnitest.ImageBlurUtils
 import com.stephen.jnitest.loadBitmapFromAssets
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun ImageBlurPage() {
-    Row {
+    FlowRow {
         val javaBlurImage = remember {
             ImageBlurUtils.blurByJava(loadBitmapFromAssets(appContext, "panda.png"), 10, false)
         }
