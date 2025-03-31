@@ -1,6 +1,7 @@
 package com.stephen.jnitest
 
 import android.util.Log
+import com.stephen.jnitest.knalgorithm.AssassinSolution
 import com.stephen.jnitest.knalgorithm.TopInterviewCollection
 
 object AlgorithmDemo {
@@ -19,6 +20,10 @@ object AlgorithmDemo {
             countCroakOfFrogsUsingKotlin().also {
                 Log.i(TAG, "countCroakOfFrogsUsingKotlin = $it")
             }
+        }
+        AssassinSolution().apply {
+            val result = solution(arrayOf("AX...", "X...."))
+            Log.i(TAG, "solution = $result")
         }
     }
 
