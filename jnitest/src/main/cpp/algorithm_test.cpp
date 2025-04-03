@@ -3,6 +3,7 @@
 #include <android/log.h>
 #include <vector>
 #include <cstdlib>
+#include "single_linked_list.h"
 
 // Android log function wrappers
 static const char *kTAG = "ALGORITHM_TEST";
@@ -264,7 +265,7 @@ int myCountCroakOfFrogs(std::string croakOfFrogs) {
  * 遍历到 o,a,k 的情况类似 r，找到该字母在 croak 的上一个字母的 cnt 值，如果 cnt 值大于 0，那么将其减一，同时当前字母的 cnt 值加一；如果上一个字母的 cnt 值等于 0，那么就返回 −1。
  * 遍历结束后，所有青蛙必须在最后发出 k 的声音。如果有青蛙在最后发出的声音不是 k（也就是 cnt 值大于 0），那么返回 −1，否则返回 cnt[k]。
  */
-int countCroakOfFrogs(const std::string& croakOfFrogs) {
+int countCroakOfFrogs(const std::string &croakOfFrogs) {
     int ans = 0;
     int c = 0, r = 0, o = 0, a = 0, k = 0;
     for (char ch: croakOfFrogs) {
@@ -307,3 +308,10 @@ Java_com_stephen_jnitest_AlgorithmDemo_countCroakOfFrogs(JNIEnv *env, jobject) {
     LOGI("number2 = %d", number2);
     return number;
 }
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_stephen_jnitest_AlgorithmDemo_linkedListTest(JNIEnv *env, jobject) {
+    LOGI("Java_com_stephen_jnitest_AlgorithmDemo_LinkedListTest triggered");
+    TestSingleLinkedList();
+}
+

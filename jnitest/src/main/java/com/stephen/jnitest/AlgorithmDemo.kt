@@ -34,6 +34,11 @@ object AlgorithmDemo {
         bubbleSortTest()
         quickSortTest()
         countCroakOfFrogs()
+        try {
+            linkedListTest()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private external fun combineTwoArrays()
@@ -43,6 +48,8 @@ object AlgorithmDemo {
     private external fun bubbleSortTest()
 
     private external fun quickSortTest()
+
+    private external fun linkedListTest()
 
     private external fun countCroakOfFrogs(): Int
 

@@ -27,7 +27,8 @@ target_link_libraries(image-blur
 
 # 算法学习demo
 add_library(algorithm-demo SHARED
-        algorithm_test.cpp)
+        algorithm_test.cpp
+        single_linked_list.cpp)
 target_link_libraries(algorithm-demo
         android
         jnigraphics
